@@ -1,0 +1,4 @@
+audio_mac备份/
+.DS_Store
+__pycache__/
+.env
