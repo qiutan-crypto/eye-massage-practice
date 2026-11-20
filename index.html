@@ -43,8 +43,11 @@ dd{margin:0}
 .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
 .seg button{border:0;background:none;padding:4px 12px;font-size:14px}
 .seg button.on{background:var(--ink);color:var(--bg)}
-.demo{display:grid;grid-template-columns:minmax(0,220px) 1fr;gap:14px;align-items:center}
-.demo video{width:100%;border-radius:10px;display:block;background:#000}
+.demo{display:flex;flex-direction:column;gap:10px}
+.demo video{width:100%;aspect-ratio:5/4;border-radius:10px;display:block;background:#000;cursor:zoom-in}
+.demo.big{position:fixed;inset:0;z-index:50;border-radius:0;border:0;background:rgba(15,13,10,.94);justify-content:center;align-items:center;padding:12px}
+.demo.big video{width:min(100%,calc((100vh - 80px)*1.25));height:auto;cursor:zoom-out}
+.demo.big p{color:#ddd}.demo.big a{display:none}
 .demo p{margin:0;font-size:14px;color:var(--mute)}
 .demo a{color:var(--accent)}
 .prep ul{margin:6px 0 0;padding-left:1.2em}
@@ -111,7 +114,7 @@ footer{max-width:1180px;margin:0 auto;padding:4px 16px 24px;color:var(--mute);fo
     </div>
     <div class="card demo" id="demo" hidden>
       <video id="clip" muted loop playsinline autoplay></video>
-      <p>法师示范这一步（无声循环）<br><a id="orig" target="_blank" rel="noopener">打开原视频的这一段 ↗</a></p>
+      <p>法师示范这一步（局部放大，无声循环）· 点一下录像可全屏放大<br><a id="orig" target="_blank" rel="noopener">打开原视频的这一段 ↗</a></p>
     </div>
   </section>
 </main>
@@ -261,6 +264,8 @@ document.addEventListener("keydown", e => { if(e.target.tagName==="INPUT") retur
   $("btnList").onclick = () => $("list").classList.toggle("open");
 })();
 render();
+$("clip").onclick = () => $("demo").classList.toggle("big");
+addEventListener("keydown", e => { if (e.key === "Escape") $("demo").classList.remove("big"); });
 </script>
 </body>
 </html>
